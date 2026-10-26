@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: financetrack-backend
+    runtime: java
+    rootDir: backend
+    buildCommand: mvn package -DskipTests
+    startCommand: java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:TieredStopAtLevel=1 -Djava.security.egd=file:/dev/./urandom -Dserver.port=$PORT -jar target/financetrack-backend-1.0.0.jar
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: DB_DRIVER
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: PORT
+        value: 8080
